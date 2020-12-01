@@ -1,59 +1,3 @@
-
-/*Double_t mean(Double_t *x, Int_t n)
-{
-    Double_t sum=0;
-    for(int i=0;i<n;i++)
-    {
-        sum=sum+x[i];
-	}
-    return sum*1.0/n;
-}
-*/
-
-
-  /*********************************************************************
-    ___________________________________________________________
-    |   DEFINING THE FUNCTIONS FOR VARIANCE AND SKEWNESS      |
-    |_________________________________________________________|
-
-  *********************************************************************/
-
-
-Double_t Q2(Double_t *x, Int_t n, Double_t mu)
-{
-    Double_t sum=0;
-    for(int i=0;i<n;i++)
-    {
-        for(int j=0;j<n;j++)
-        {
-            if(i!=j)
-            {
-                sum+=(x[i]-mu)*(x[j]-mu);    
-			}
-	    }
-	}
-    return sum*1.0/(n*(n-1));
-}
-Double_t Q3(Double_t *x, Int_t n, Double_t mu)
-{
-    Double_t sum=0;
-    for(int i=0;i<n;i++)
-    {
-        for(int j=0;j<n;j++)
-        {
-            for(int k=0;k<n;k++)
-            {
-                if(i!=j&&j!=k&&k!=i)
-                {
-                    sum+=(x[i]-mu)*(x[j]-mu)*(x[k]-mu) ;   
-			    }
-            }
-	    }
-	}
-    return sum*1.0/(n*(n-1)*(n-2));
-}
-
-
 void readtree()
 {
   
@@ -111,11 +55,7 @@ void readtree()
 
   *********************************************************************/
 
-  //TCanvas *c1=new TCanvas("c1","Multiplicity",200,10,800,600);
   TCanvas *c2=new TCanvas("c2","Transverse Momentum",200,10,800,600);
-  //TCanvas *c3=new TCanvas("c3","Phi",200,10,800,600);
-  //TCanvas *c4=new TCanvas("c4","Rapidity",200,10,800,600);
-  //TCanvas *c5=new TCanvas("c5","Rap",200,10,800,600);
   TCanvas *c6=new TCanvas("c6","Mean Transverse Momentum",200,10,800,600);
 
 
@@ -133,26 +73,17 @@ void readtree()
    
   Int_t ntrack = 0;
   Double_t pT[maxTrack];
-  Double_t eta[maxTrack];
-  Double_t rap[maxTrack];
-  Double_t phi[maxTrack];
   Double_t NT[entries];
 
 
   tree->SetBranchAddress("ntrack",&ntrack);
-  tree->SetBranchAddress("phi",&phi);
   tree->SetBranchAddress("pT",&pT);
-  tree->SetBranchAddress("eta",&eta);
-  tree->SetBranchAddress("rap",&rap);
  
 
 
   TH1D *hmult =  new TH1D("hmult","Multiplicity",100,0,100.0);
-  TH1D *hpT   =  new TH1D("hpT","Transverse Momentum", 100,0,2.0);
-  TH1D *hpTm   =  new TH1D("hpTm","Mean Transverse Momentum", 100,0,2.0);
-  TH1D *hphi  =  new TH1D("hphi","Phi",100,-5.0,5.0);
-  TH1D *heta  =  new TH1D("heta","Rapidity",100,-5.0,5.0);
-  TH1D *hrap  =  new TH1D("hrap","Rap",100,-5.0,5.0);
+  TH1D *hpT   =  new TH1D("hpT","Transverse Momentum", 100,0,3.0);
+  TH1D *hpTm   =  new TH1D("hpTm","Mean Transverse Momentum", 100,0,3.0);
 
 
 
@@ -182,33 +113,9 @@ void readtree()
 
 
 
-  /*********************************************************************
-    _____________________________________________
-    |   FINDING THE VARIANCE AND SKEWNESS       |
-    |___________________________________________|
 
-  *********************************************************************/
-
-
-  Double_t M=hpTm->GetMean();
-  Double_t q2=0.0;
-  Double_t q3=0.0;
-
-  for(Int_t ii=0; ii<entries; ii++)  
-  {
-        tree->GetEntry(ii);
-        Int_t ntrks = ntrack;
-        NT[ii]=ntrks;
-        hmult->Fill(ntrks);
-        q2+=Q2(pT,ntrks,M);
-        q3+=Q3(pT,ntrks,M);
-  }
-  q2=q2*1.0/entries;
-  q3=q3*1.0/entries;
 
   cout<<"\n\n"<<a<<"\n\n"<<endl;
-  cout<<"Standardised Skewness of <pT>: "<<q3/TMath::Power(q2,1.5)<<endl;
-  cout<<"Intensive Skewness of <pT>: "<<q3*M/TMath::Power(q2,2)<<endl;
 
   
   
@@ -222,13 +129,20 @@ void readtree()
 
   *********************************************************************/
 
-  hpT->SetTitle(a);
-  hpT->GetXaxis()->SetTitle("<pT> (GeV)");
-  hpT->GetYaxis()->SetTitle("Count");
-  hpTm->SetTitle(a);
-  hpTm->GetXaxis()->SetTitle("<pT> (GeV)");
-  hpTm->GetYaxis()->SetTitle("Count");
 
+
+  hpT->SetTitle("Histogram for pT for pytree 2040");
+  hpT->GetXaxis()->SetTitle("pT (GeV/c)");
+  hpT->GetYaxis()->SetTitle("Count");
+  hpT->SetFillColor(kCyan-10);
+  hpT->SetLineColor(kBlue);
+  hpT->SetStats(0);
+  hpTm->SetTitle("Histogram for <pT> for pytree 2040");
+  hpTm->GetXaxis()->SetTitle("<pT> (GeV/c)");
+  hpTm->GetYaxis()->SetTitle("Count");
+  hpTm->SetFillColor(kCyan-10);
+  hpTm->SetLineColor(kBlue);
+  hpTm->SetStats(0);
 
 
 
@@ -242,9 +156,11 @@ void readtree()
 
    TF1 *gaus=new TF1("gaus","gaus",-0.5,0.5);
    gaus->SetParameters(hpTm->GetMaximum(), hpTm->GetMean(), hpTm->GetRMS()); 
+   gaus->SetLineColor(kRed);
    hpTm->Fit("gaus");
    TF1 *expo=new TF1("expo","expo",-0.5,0.5);
    expo->SetParameters(hpT->GetMean(), -hpT->GetMean()); 
+   expo->SetLineColor(kRed);
    hpT->Fit("expo");
 
 
@@ -257,40 +173,25 @@ void readtree()
 
   *********************************************************************/
 
-  //c1->cd();
-  //hmult->Draw();
+
   c2->cd();
+  c2->SetLogy();
+  TLegend *legend1 = new TLegend(0.45,0.70,0.90,0.90);
+  legend1->SetHeader("The Legend Title","C");
+  legend1->AddEntry(hpT,"Histogram of Transverse Momentum","f");
+  legend1->AddEntry(expo,"Exponential Fit","l");    
+  legend1->SetFillColor(kYellow-10);   
   hpT->Draw();
+  legend1->Draw();
   c6->cd();
+  c6->SetLogy();
+  TLegend *legend2 = new TLegend(0.45,0.70,0.90,0.90);
+  legend2->SetHeader("The Legend Title","C");
+  legend2->AddEntry(hpTm,"Histogram of Mean Transverse Momentum","f");
+  legend2->AddEntry(gaus,"Gaussian Fit","l"); 
+  legend2->SetFillColor(kYellow-10);   
   hpTm->Draw();
-  //c3->cd();
-  //hphi->Draw();
-  //c4->cd();
-  //heta->Draw();
-  //c5->cd();
-  //hrap->Draw();
-
-
-
-
-  /*********************************************************************
-    _____________________________________________
-    |       DRAWING THE GRAPHS                  |
-    |___________________________________________|
-
-  *********************************************************************/
-
-
-  TCanvas *c1 = new TCanvas("c1","A Simple Graph Example",200,10,500,300);
-   Double_t x[100], y[100];
-   Int_t n = 20;
-   for (Int_t i=0;i<n;i++) {
-     x[i] = i*0.1;
-     y[i] = 10*sin(x[i]+0.2);
-   }
-   TGraph* gr = new TGraph(n,x,y);
-   gr->Draw("AC*");
-
+  legend2->Draw();
 
 
 }
