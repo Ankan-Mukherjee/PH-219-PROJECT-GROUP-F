@@ -73,14 +73,14 @@
 \section*{Abstract}
 \vspace{-2mm}
 \begin{adjustwidth}{20pt}{20pt}
-We aim to analyse p-p collisions by the studying the transverse momenta of the ejected particles. We reproduce the results obtained by Giuliano Giacalone, Fernando G. Gardim {\it et al} in their paper on mean transverse momentum fluctuations in heavy-ion collisions \cite{fluct}. Using the data generated from the Pythia 8 generator, we plot the mean transverse momenta of multiple p-p collisions. We verify the positively skewed deviation of mean transverse momentum $\mathbf{\langle p_T \rangle}$  from Gaussian distribution. First, we divide the data into different multiplicity classes and plot the distribution of $\mathbf{p_T}$ and $\mathbf{\langle  p_T\rangle}$. Then we observe how mean and intensive variance of $\mathbf{p_T}$ changes over different multiplicity classes. Finally, we find intensive and standardized skewness of $\mathbf{p_T}$ for different multiplicity classes. 
+We aim to analyze p-p collisions by studying the transverse momenta of the ejected particles. We reproduce the results obtained by Giuliano Giacalone, Fernando G. Gardim {\it et al.} in their paper on mean transverse momentum fluctuations in heavy-ion collisions \cite{fluct}. Using the data generated from the Pythia 8 generator, we plot the mean transverse momenta of multiple p-p collisions. We verify the positively skewed deviation of mean transverse momentum $\mathbf{\langle p_T \rangle}$ from Gaussian distribution. First, we divide the data into different multiplicity classes and plot the distribution of $\mathbf{p_T}$ and $\mathbf{\langle  p_T\rangle}$. Then we observe how mean and intensive variance of $\mathbf{p_T}$ change over different multiplicity classes. Finally, we find intensive and standardized skewness of $\mathbf{p_T}$ for different multiplicity classes. 
 \end{adjustwidth}
 \vspace{-2mm}
 
 
 \section{Introduction}
 \vspace{-2mm}
-For a given collision centrality, the mean transverse momentum $\mathbf{\langle  p_T\rangle}$ of emitted particles in ultra-relativistic nucleus-nucleus collisions fluctuates from one event to another. The distribution of $\mathbf{\langle  p_T\rangle}$ in event-by-event dynamics reflects the various statistical and dynamical fluctuations.
+For a given collision centrality, the mean transverse momentum $\mathbf{\langle  p_T\rangle}$ of emitted particles in ultra-relativistic proton-proton collisions fluctuates from one event to another. The distribution of $\mathbf{\langle  p_T\rangle}$ in event-by-event dynamics reflects the various statistical and dynamical fluctuations.
  
 In this project, through various plots, we will show that the probability distribution of $\mathbf{\langle  p_T\rangle}$ is \textbf{not Gaussian} but has \textbf{positive skew}, which arises because of the above-mentioned fluctuations.
 
@@ -91,7 +91,7 @@ We shall be using the following definitions as per the \textbf{STAR} collaborati
 \vspace{-1mm}
 \begin{equation}
 \label{eq:1}
-\mathrm{Mean\ Transverse\ Momentum}=\langle \langle p_T\rangle \rangle =\langle \bfrac{\Sigma_{i=1}^{N_{ch}} p_i}{N_{ch}}\rangle 
+\mathrm{Mean\ Transverse\ Momentum}=\langle \langle p_T\rangle \rangle =\left\langle \bfrac{\Sigma_{i=1}^{N_{ch}} p_i}{N_{ch}}\right\rangle 
 \end{equation}
 
 where $N_{ch}$ denotes the number of charged particles in an event, $p_i$ is the transverse momentum of the $i$th particle and angular brackets denote an average over events in a centrality class.
@@ -99,7 +99,7 @@ where $N_{ch}$ denotes the number of charged particles in an event, $p_i$ is the
 We analyze the variance of dynamical $p_T$ fluctuations which we denote by $\langle \Delta p_i \Delta p_j\rangle $,
 \begin{equation}
 \label{eq:2}
-\langle \Delta p_i \Delta p_j \rangle =\langle \bfrac{\Sigma_{i,j\neq i} {(p_i-\langle \langle p_T\rangle \rangle )(p_j-\langle \langle p_T\rangle \rangle )}}{N_{ch}(N_{ch}-1)}\rangle 
+\langle \Delta p_i \Delta p_j \rangle =\left\langle \bfrac{\Sigma_{i;j\neq i}\ {(p_i-\langle \langle p_T\rangle \rangle )(p_j-\langle \langle p_T\rangle \rangle )}}{N_{ch}(N_{ch}-1)}\right\rangle 
 \end{equation}
 which can also be written as
 \begin{equation}
@@ -114,7 +114,7 @@ and the intensive variance of transverse momentum which is defined as follows
 The skewness is the third central moment, denoted by $\langle \Delta p_i \Delta p_j \Delta p_k\rangle $ defined as follows
 \begin{equation}
 \label{eq:5}
-\langle \Delta p_i \Delta p_j \Delta p_k\rangle =\langle \bfrac{\Sigma_{i,j\neq i, k\neq i,j} {(p_i-\langle \langle p_T\rangle \rangle )(p_j-\langle \langle p_T\rangle \rangle )(p_k-\langle \langle p_T\rangle \rangle )}}{N_{ch}(N_{ch}-1)(N_{ch}-2)}\rangle 
+\langle \Delta p_i \Delta p_j \Delta p_k\rangle =\left\langle \bfrac{\Sigma_{i;j\neq i; k\neq i,j}\ {(p_i-\langle \langle p_T\rangle \rangle )(p_j-\langle \langle p_T\rangle \rangle )(p_k-\langle \langle p_T\rangle \rangle )}}{N_{ch}(N_{ch}-1)(N_{ch}-2)}\right\rangle 
 \end{equation}
 which can also be written as
 \begin{equation}
@@ -407,18 +407,19 @@ The table below summarizes the data.
 
 
 
-
+\vspace{-2mm}
 
 
 \section{Summary}
-
-The study of the mean transverse momentum $\mathbf{\langle p_T\rangle }$ of emitted particles in ultra-relativistic nucleus collisions fluctuates from one event to another. We have shown the various statistical and dynamical fluctuations is been reflected on distribution of the <pt>. It very clear that the function of $\mathbf{\langle p_T\rangle }$ verses collision count tends to have an \textbf{Exponential fit} and having a \textbf{positive skewness in Gaussian fit}. Hydrodynamics predicts that the event-by-event fluctuations of the mean transverse momentum, $\mathbf{\langle p_T\rangle }$, have positive skew. And fluctuation can be calculated in terms of standard skewness and intensive skewness. At centre of mass energy \textbf{13 TeV} for \textbf{p+p collision} the standard skewness tends to have values between \textbf{1.2 to 4.2 GeV/c} and intensive skewness having values between \textbf{5.2 to 31.2} for corresponding multiplicity classes. For the multiplicity class \textit{pytree80100} it shows a dip in value of skewness. This could be for several reasons. Some of then are mentioned below.
+\vspace{-2mm}
+The fluctuations occurring in the mean transverse momentum $\mathbf{\langle p_T\rangle }$ of emitted particles in various collisions have several underlying causes. We have shown that the various statistical and dynamical fluctuations are being reflected on the distribution of $\mathbf{\langle p_T\rangle }$. It is very clear that the function of $\mathbf{\langle p_T\rangle }$ versus collision count tends to have a \textbf{positive skewness in Gaussian fit}. Hydrodynamics predicts that the event-by-event fluctuations of the mean transverse momentum, $\mathbf{\langle p_T\rangle }$, have positive skew. The fluctuation can be calculated in terms of standardized skewness and intensive skewness. At the centre of mass energy \textbf{13 TeV} for \textbf{p+p collision}, the standardized skewness tends to have values between \textbf{1.2 to 4.2 GeV/c} and intensive skewness has values between \textbf{5.2 to 31.2} for corresponding multiplicity classes. From \hyperref[subsubsec:mean]{FIG. 6.}, we conclude that the mean transverse momentum is \textbf{monotonically increasing} with respect to the multiplicity class. \hyperref[subsubsec:intvar]{FIG. 7.} shows that the intensive variance of transverse momentum is \textbf{monotonically decreasing} with respect to the multiplicity class. From the graphs in \hyperref[subsubsec:stdskew]{FIG. 8.} and \hyperref[subsubsec:intskew]{FIG. 9.}, it is evident that both standardized as well as intensive skewness of transverse momentum \textbf{increases} with multiplicity class, with one exception. For the multiplicity class \textit{pytree80100} it shows a dip in value of skewness. This could be for several reasons. Some of them are mentioned below.
 \begin{enumerate}[label=(\roman*)]
-\itemsep0em 
+\itemsep0em
 \item The events are simulated using a Monte Carlo Generator, which in some extreme cases produce data sets that are very close to the mean (having very few outliers)
-\item The number of events in \textit{pytree80100} is much less than the previous multiplicity classes, as is seen from the \hyperref[subsubsec:summary]{table}
-\item As seen from \hyperref[Fig:5b]{FIG. 5b.}, the histogram of the distribution of $\mathbf{\langle p_T\rangle }$ has a steep decreasing slope to the right side of the peak, which is indicative of higher resemblance to a Gaussian fit. This might occur due to the finite size of the data. 
+\item The number of events in \textit{pytree80100} is much less than the previous multiplicity classes, as seen from the \hyperref[subsubsec:summary]{table}
+\item As seen from \hyperref[Fig:5b]{FIG. 5b.}, the histogram of the distribution of $\mathbf{\langle p_T\rangle }$ has a steep decreasing slope towards the right, which is indicative of higher resemblance to a Gaussian fit. This might occur due to the finite size of the data. 
 \end{enumerate}
+Needless to say, the origin and the behaviour of the skewness is a deep and interesting topic that requires further discussion in near future.
 
 
 
@@ -431,7 +432,7 @@ The study of the mean transverse momentum $\mathbf{\langle p_T\rangle }$ of emit
   
 
 %\bibitem{fluct} J. ~Adams {\it et al.}, (ALICE Collaboration), Nature Physics{\bf 13},535-539 (2017). 
-\bibitem{fluct}  Giuliano Giacalone {\it et al}, \textit{Skewness of mean transverse momentum fluctuations in heavy-ion collisions} (arXiv:2004.09799 [nucl-th])
+\bibitem{fluct}  Giuliano Giacalone {\it et al.}, \textit{Skewness of mean transverse momentum fluctuations in heavy-ion collisions} (arXiv:2004.09799 [nucl-th])
 
 \end{thebibliography}
 
